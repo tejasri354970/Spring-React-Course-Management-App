@@ -1,25 +1,68 @@
-import React from "react";
+import axios from "axios";
+import React, {useEffect, useState} from "react";
 import { Button, Container, Form, FormGroup, Input } from "reactstrap";
+import base_url from "../api/bootapi";
 
 const AddCourse = () =>{
+    useEffect(()=>{
+        document.title="Add Course"
+    }, []);
+
+    const [course, setCourse] = useState({});
+    //form handeler function
+
+    const handleForm = (e)=>{
+        console.log(course);
+        e.preventDefault()
+    }
+    //Creating funtion to post data on server
+
+    const postDatatoServer=(data)=>{
+        axios.post(`${base_url}/courses`,data).then(
+            (response)=>{
+                console.log(response)
+                console.log("success")
+            },(error)=>{
+                console.log(error)
+                console.log("error")
+            }
+        )
+    }
+    
     return(
         <div>
             <h1 className="text-center my-3">Fill The Course Details</h1>
-            <Form style={{marginLeft:'20px', marginRight:'20px'}}>
+            <Form style={{marginLeft:'20px', marginRight:'20px'}}
+                onSubmit={handleForm}>
                 <FormGroup>
                     <label>Course Id</label>
-                    <Input type="text" placeholder="Enter Here" name="userId" id="userId" />
+                    <Input 
+                        type="text" 
+                        placeholder="Enter Here" 
+                        name="userId" 
+                        id="userId"
+                        onChange={(e)=>{
+                            setCourse({...course, id: e.target.value})
+                        }}
+                         />
                 </FormGroup>
                 <FormGroup>
                     <label for="title">Course title</label>
-                    <Input type="text" placeholder="Enter Title" name="title" id="title" />
+                    <Input type="text" placeholder="Enter Title" name="title" id="title"
+                    onChange={(e)=>{
+                        setCourse({...course,title:e.target.value})
+                    }} />
                 </FormGroup>
                 <FormGroup>
                     <label for="description">Course description</label>
-                    <Input type="textarea" placeholder="Enter description" name="description" id="description" style={{height: 130}}/>
+                    <Input type="textarea" placeholder="Enter description" name="description" id="description" style={{height: 130}}
+                    onChange={(e)=>{
+                        setCourse({...course,description:e.target.value})
+                    }}
+                    />
                 </FormGroup>
                 <Container className="text-center">
-                    <Button color="success">Add Course</Button>
+                    <Button type="submit" color="success">Add Course</Button>
                     <Button color="warning" style={{marginLeft:'20px'}}>Clear</Button>
                 </Container>
             </Form>
