@@ -13,18 +13,19 @@ const AddCourse = () =>{
 
     const handleForm = (e)=>{
         console.log(course);
-        e.preventDefault()
+        postDatatoServer(course );
+        e.preventDefault();
     }
     //Creating funtion to post data on server
 
-    const postDatatoServer=(data)=>{
-        axios.post(`${base_url}/courses`,data).then(
-            (response)=>{
+    const postDatatoServer = (course) => {
+        axios.post(`${base_url}/courses`,course)
+        .then((response)=>{
                 console.log(response)
-                console.log("success")
+                alert("success")
             },(error)=>{
                 console.log(error)
-                console.log("error")
+                alert("error")
             }
         )
     }
@@ -50,14 +51,14 @@ const AddCourse = () =>{
                     <label for="title">Course title</label>
                     <Input type="text" placeholder="Enter Title" name="title" id="title"
                     onChange={(e)=>{
-                        setCourse({...course,title:e.target.value})
+                        setCourse({...course, title:e.target.value})
                     }} />
                 </FormGroup>
                 <FormGroup>
                     <label for="description">Course description</label>
                     <Input type="textarea" placeholder="Enter description" name="description" id="description" style={{height: 130}}
                     onChange={(e)=>{
-                        setCourse({...course,description:e.target.value})
+                        setCourse({...course, description:e.target.value})
                     }}
                     />
                 </FormGroup>
