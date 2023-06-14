@@ -1,7 +1,7 @@
 FROM node:14
 ENV NODE_ENV=production
 
-WORKDIR /usr/app
+WORKDIR /scr/app
 
 COPY [ "package*.json", "package-lock.json*", "./" ]
 
