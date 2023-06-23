@@ -5,7 +5,7 @@ FROM adoptopenjdk:11-jre-hotspot
 WORKDIR /app
 
 # Copy the application jar file
-COPY target/<your-application-jar>.jar app.jar
+COPY target/spring-react-app.jar app.jar
 
 # Expose port 8080
 EXPOSE 8080
