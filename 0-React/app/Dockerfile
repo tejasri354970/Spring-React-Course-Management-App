@@ -1,29 +1,24 @@
 # Base image
-FROM node:14-alpine as build
+FROM node:14-alpine
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install
 
-# Copy the application code
+# Copy the application code to the working directory
 COPY . .
 
-# Build the React.js app
+# Build the React app
 RUN npm run build
 
-# Stage 2 - Serve the production-ready React.js app
-FROM nginx:1.21-alpine
+# Expose the desired port (change it to match your React app's port)
+EXPOSE 3000
 
-# Copy the build files from the previous stage
-COPY --from=build /app/build /usr/share/nginx/html
+# Start the React app
+CMD ["npm", "start"]
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
