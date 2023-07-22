@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         // Specify the Maven installation to use
-        maven 'maven 3.9.3'
+        maven 'maven3.9.3'
     }
 
     stages {
