@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        // Specify the Maven installation to use
+        maven 'Maven 3.9.3'
+    }
 
     stages {
         stage('Clone Git Repository') {
